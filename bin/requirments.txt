@@ -1,5 +1,0 @@
-django==2.2
-djangorestframework
-PymySQL
-pillow
-django-redis
