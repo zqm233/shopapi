@@ -7,8 +7,8 @@
         </div>
         <ul class="nav full-left">
           <li :key="key" v-for="nav,key in nav_list">
-            <a :href="nav.link" v-if="nav.is_http">{{nav.title}}</a>
-            <router-link :to="nav.link" v-else>{{nav.title}}</router-link>
+            <a :href="nav.link" v-if="nav.opt==1">{{nav.name}}</a>
+<!--            <router-link :to="nav.link" v-else>{{nav.name}}</router-link>-->
           </li>
         </ul>
 
@@ -58,13 +58,13 @@
             }
         },
         created() {
-            this.user_token = localStorage.user_token || sessionStorage.user_token;
+            // this.user_token = localStorage.user_token || sessionStorage.user_token;
             this.get_nav();
         },
         methods: {
             get_nav() {
                 // 获取头部导航
-                this.$axios.get(`${this.$settings.Host}/nav/header/`).then(response => {
+                this.$axios.get(`${this.$settings.Host}/home/nav/`).then(response => {
                     this.nav_list = response.data;
                 }).catch(error => {
                     this.$alert('导航信息获取失败！', "路飞学城");

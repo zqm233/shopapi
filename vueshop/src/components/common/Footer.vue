@@ -2,8 +2,8 @@
     <div class="footer">
       <ul>
         <li v-for="nav in nav_list">
-          <a :href="nav.link" v-if="nav.is_http">{{nav.title}}</a>
-          <router-link :to="nav.link" v-else>{{nav.title}}</router-link>
+          <a :href="nav.link" v-if="nav.opt==2">{{nav.name}}</a>
+<!--          <router-link :to="nav.link" v-else>{{nav.name}}</router-link>-->
         </li>
       </ul>
       <p>Copyright © zqm-shop</p>
@@ -24,7 +24,7 @@
         methods:{
             get_nav(){
                 // 获取导航
-                this.$axios.get(`${this.$settings.Host}/nav/footer/`).then(response=>{
+                this.$axios.get(`${this.$settings.Host}/home/nav/`).then(response=>{
                     this.nav_list = response.data;
                 }).catch(error=>{
                     this.$alert('导航信息获取失败！', "shop");
