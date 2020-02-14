@@ -4,7 +4,7 @@
     <div class="login">
       <div class="login-title">
         <img src="../../static/image/Logotitle.1ba5466.png" alt="">
-        <p>帮助有志向的年轻人通过努力学习获得体面的工作和生活!</p>
+        <p>It's my shop!</p>
       </div>
       <div class="login_box">
         <div class="title">
@@ -22,14 +22,14 @@
             </p>
             <p>忘记密码</p>
           </div>
-          <button class="login_btn" @click="get_captcha">登录</button>
+          <button class="login_btn" @click="loginHandler">登录</button>
           <p class="go_login" >没有账号 <router-link to="/user/register">立即注册</router-link></p>
         </div>
         <div class="inp" v-show="login_type==1">
           <input v-model="username" type="text" placeholder="手机号码" class="user">
           <input v-model="password" type="text" class="pwd" placeholder="短信验证码">
           <button id="get_code">获取验证码</button>
-          <button class="login_btn">登录</button>
+          <button class="login_btn" @click="loginHandler">登录</button>
           <p class="go_login" >没有账号 <router-link to="/user/register">立即注册</router-link></p>
         </div>
       </div>
@@ -92,10 +92,10 @@
             loginHandler() {
                 // 登录处理
                 if (this.username.length < 1 || this.password.length < 1) {
-                    this.$alert('账号或密码不能为空', '路飞学城');
+                    this.$alert('账号或密码不能为空', 'myshop');
                     return;
                 }
-                this.$axios.post(`${this.$settings.Host}/user/login/`, {
+                this.$axios.post(`${this.$settings.Host}/users/login/`, {
                     username: this.username,
                     password: this.password,
                 }).then(response => {
@@ -118,20 +118,20 @@
                         sessionStorage.user_name = response.data.username;
                     }
                     // 保存积分数量以及兑换比例
-                    sessionStorage.user_credit = response.data.credit;
-                    sessionStorage.credit_money = response.data.credit_money;
-                    // 保存购物车商品数量到Vuex
-                    this.$store.commit(`update_num`, response.data.cart_num);
+                    // sessionStorage.user_credit = response.data.credit;
+                    // sessionStorage.credit_money = response.data.credit_money;
+                    // // 保存购物车商品数量到Vuex
+                    // this.$store.commit(`update_num`, response.data.cart_num);
                     // 保存了token以后，进行页面跳转跳转
                     let self = this;
-                    this.$alert("登录成功！", "路飞学城", {
+                    this.$alert("登录成功！", "shop", {
                         callback() {
                             // self.$router.push("/"); // 返回首页
                             self.$router.go(-1); // 返回上一页
                         }
                     })
                 }).catch(error => {
-                    this.$alert('账号或密码错误！', '路飞学城');
+                    this.$alert('账号或密码错误！', 'shop');
                 })
             }
         },

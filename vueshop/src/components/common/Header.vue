@@ -38,7 +38,7 @@
             <span><router-link to="/cart">购物车</router-link></span>
           </div>
           <div class="login-box full-left">
-            <router-link to="/user/login">登录</router-link>
+            <router-link to="/login">登录</router-link>
             &nbsp;|&nbsp;
             <span class="header-register"><router-link to="/user/register">注册</router-link></span>
           </div>
@@ -67,7 +67,7 @@
                 this.$axios.get(`${this.$settings.Host}/home/nav/`).then(response => {
                     this.nav_list = response.data;
                 }).catch(error => {
-                    this.$alert('导航信息获取失败！', "路飞学城");
+                    this.$alert('导航信息获取失败！', "shop");
                 })
             },
             logoutHandler(){

@@ -31,4 +31,5 @@ urlpatterns = [
     re_path(r'media/(?P<path>.*)', serve, {"document_root": settings.MEDIA_ROOT}),
     path('home/', include('home.urls')),
     path(r'xadmin/', xadmin.site.urls),
+    path('users/',include('users.urls'))
 ]

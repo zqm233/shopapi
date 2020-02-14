@@ -49,6 +49,8 @@ INSTALLED_APPS = [
     'reversion',
 
     'home',
+    'users',
+
 
 ]
 
@@ -192,8 +194,32 @@ MEDIA_ROOT = os.path.join(BASE_DIR,'uploads')
 #     }
 # }
 REST_FRAMEWORK ={
-    'EXCEPTION_HANDLER':'shopapi.utils.exception.custom_exception_handler'
+    'EXCEPTION_HANDLER':'shopapi.utils.exception.custom_exception_handler',
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.BasicAuthentication',
+    ),
 }
+
+import datetime
+
+JWT_AUTH = {
+    # token的有效期
+    'JWT_EXPIRATION_DELTA': datetime.timedelta(days=1),
+    # 自定义返回数据
+    'JWT_RESPONSE_PAYLOAD_HANDLER':
+    'users.utils.jwt_response_payload_handler',
+}
+
+AUTHENTICATION_BACKENDS = {
+    'users.utils.UsernameMobileAuthBacked',
+}
+
+
 # CORS_ORIGIN_WHITELIST = []
 CORS_ORIGIN_ALLOW_ALL=True
 CORS_ALLOW_CREDENTIALS=True
+
+
+AUTH_USER_MODEL = 'users.User'
