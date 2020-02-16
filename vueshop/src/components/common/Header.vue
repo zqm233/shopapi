@@ -12,9 +12,9 @@
           </li>
         </ul>
 
-        <div class="login-bar full-right" v-if="user_token">
+        <div v-if="user_token" class="login-bar full-right" >
           <div class="shop-cart full-left">
-            <span class="shop-cart-total">{{$store.state.num}}</span>
+<!--            <span class="shop-cart-total">{{$store.state.num}}</span>-->
             <img src="/static/image/cart.svg" alt="">
             <span><router-link to="/cart">购物车</router-link></span>
           </div>
@@ -40,7 +40,7 @@
           <div class="login-box full-left">
             <router-link to="/login">登录</router-link>
             &nbsp;|&nbsp;
-            <span class="header-register"><router-link to="/user/register">注册</router-link></span>
+            <span class="header-register"><router-link to="/register">注册</router-link></span>
           </div>
         </div>
       </div>
@@ -53,12 +53,12 @@
         name: "Header",
         data() {
             return {
-                user_token: "",
+                user_token: localStorage.user_token || sessionStorage.user_token,
                 nav_list: []
             }
         },
         created() {
-            // this.user_token = localStorage.user_token || sessionStorage.user_token;
+            this.user_token = localStorage.user_token || sessionStorage.user_token;
             this.get_nav();
         },
         methods: {

@@ -223,3 +223,37 @@ CORS_ALLOW_CREDENTIALS=True
 
 
 AUTH_USER_MODEL = 'users.User'
+
+CACHES = {
+    'default': {
+        'BACKEND': 'django_redis.cache.RedisCache',
+        'LOCATION': 'redis://127.0.0.1:6379/0',
+        'OPTIONS': {
+            'CLIENT_CLASS': 'django_redis.client.DefaultClient',
+        }
+    },
+    'session': {
+        'BACKEND': 'django_redis.cache.RedisCache',
+        'LOCATION': 'redis://127.0.0.1:6379/1',
+        'OPTIONS': {
+            'CLIENT_CLASS': 'django_redis.client.DefaultClient',
+        }
+    },
+    'sms_code': {
+        'BACKEND': 'django_redis.cache.RedisCache',
+        'LOCATION': 'redis://127.0.0.1:6379/2',
+        'OPTIONS': {
+            'CLIENT_CLASS': 'django_redis.client.DefaultClient',
+        }
+    }
+}
+
+SESSITION_ENGINE = 'django.contrib.session.backends.cache'
+SESSITION_CACHE_ALIAS = 'session'
+
+
+SMS_ACCOUNTSID = '8a216da8701eb7c101704776786110e8'
+SMS_ACCOUNTTOKEN = '90b9ad943d24455b9425482149acec99'
+SMS_APPID = '8a216da8701eb7c10170477678c810ef'
+SMS_SERVERIP = 'app.cloopen.com'
+SMS_SERVERPORT = '8883'
