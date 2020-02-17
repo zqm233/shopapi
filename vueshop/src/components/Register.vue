@@ -7,9 +7,10 @@
         <div class="inp">
           <input v-model="mobile" type="text" @blur="checkMobile" placeholder="手机号码" class="user">
           <input v-model="password" type="password" placeholder="登录密码" class="user">
+          <input v-model="password2" type="password" placeholder="确认密码" class="user">
           <div class="sms-box">
-            <input v-model="sms" maxlength="6" type="text" placeholder="短信验证码" class="user">
-            <div class="sms-btn" @click="smsHander">{{sms_text}}</div>
+            <input v-model="sms_code" maxlength="6" type="text" placeholder="短信验证码" class="user">
+            <div class="sms-btn" @click="">{{sms_text}}</div>
           </div>
           <div id="geetest"></div>
           <button class="register_btn" @click="registerHandler">注册</button>
@@ -27,11 +28,12 @@
         name: 'Register',
         data() {
             return {
-                sms: "",
+                sms_code: "",
                 mobile: "",
                 password: "",
                 is_send: false, // 是否处于短信发送冷却时间内
                 sms_text: "点击发送验证码",
+                password2: "",
             }
         },
         created() {
@@ -46,7 +48,7 @@
                     return;
                 }
 
-                if (this.sms.length < 4 || this.sms.length > 6) {
+                if (this.sms_code.length < 4 || this.sms_code.length > 6) {
                     this.$alert("对不起,短信验证码格式错误！");
                     return;
                 }
@@ -55,19 +57,19 @@
                     this.$alert("对不起,密码长度必须在6-16个字符之间！");
                     return;
                 }
-
-                this.$axios.post(`${this.$settings.Host}/user/`, {
+                this.$axios.post(`${this.$settings.Host}/users/user/`, {
                     mobile: this.mobile,
                     password: this.password,
-                    sms: this.sms,
+                    password2:this.password2,
+                    sms_code: this.sms_code,
                 }).then(response => {
                     // 保存登录状态
                     sessionStorage.user_id = response.data.id;
                     sessionStorage.user_name = response.data.username;
                     sessionStorage.user_token = response.data.token;
                     // 保存积分数量及兑换比例
-                    sessionStorage.user_credit = response.data.credit;
-                    sessionStorage.credit_money = response.data.credit_money;
+                    // sessionStorage.user_credit = response.data.credit;
+                    // sessionStorage.credit_money = response.data.credit_money;
                     let self = this;
                     this.$alert("注册成功！欢迎加入路飞学城！", "路飞学城", {
                         callback() {
@@ -79,45 +81,52 @@
                 });
             },
             checkMobile() {
+
+              let ret = /1[3-9]\d{9}$/.test(this.mobile);
+                if (!ret) {
+                    this.$alert("对不起,手机号码格式有误！");
+                    return;
+                }
+
                 // 验证手机号的唯一性
-                this.$axios.get(`${this.$settings.Host}/user/mobile/${this.mobile}/`).then(response => {
+                this.$axios.get(`${this.$settings.Host}/users/mobile/${this.mobile}/`).then(response => {
 
                 }).catch(error => {
                     this.$message("当前手机号已经被注册！");
                     this.mobile = "";
                 });
             },
-            smsHander() {
-                // 发送短信处理
-                let ret = /1[3-9]\d{9}$/.test(this.mobile);
-                if (!ret) {
-                    this.$alert("对不起，手机号码格式有误！");
-                    return;
-                }
-                if (this.is_send) {
-                    this.$alert("对不起，验证码已发送，请留意您的手机。不要频繁发送验证码！");
-                    return;
-                }
-                this.$axios.get(`${this.$settings.Host}/user/sms/${this.mobile}/`).then(response => {
-                    this.$message("短信验证码发送成功，请注意查收！");
-                    this.is_send = true;  // 让短信进去冷却状态
-                    let self = this;
-                    let num = 60;
-                    let t = setInterval(() => {
-                        if (num < 1) {
-                            self.sms_text = "点击发送验证码";
-                            this.is_send = false;
-                            clearInterval(t); // 关闭定时器
-                        } else {
-                            num--;  //等同与 num = num - 1;
-                            self.sms_text = `${num}秒后点击重新发送`;
-                        }
-                    }, 1000);
-                }).catch(error => {
-                    this.$alert(error.response.data.message);
-                })
-
-            }
+            // smsHander() {
+            //     // 发送短信处理
+            //     let ret = /1[3-9]\d{9}$/.test(this.mobile);
+            //     if (!ret) {
+            //         this.$alert("对不起，手机号码格式有误！");
+            //         return;
+            //     }
+            //     if (this.is_send) {
+            //         this.$alert("对不起，验证码已发送，请留意您的手机。不要频繁发送验证码！");
+            //         return;
+            //     }
+            //     this.$axios.get(`${this.$settings.Host}/users/sms/${this.mobile}/`).then(response => {
+            //         this.$message("短信验证码发送成功，请注意查收！");
+            //         this.is_send = true;  // 让短信进去冷却状态
+            //         let self = this;
+            //         let num = 60;
+            //         let t = setInterval(() => {
+            //             if (num < 1) {
+            //                 self.sms_text = "点击发送验证码";
+            //                 this.is_send = false;
+            //                 clearInterval(t); // 关闭定时器
+            //             } else {
+            //                 num--;  //等同与 num = num - 1;
+            //                 self.sms_text = `${num}秒后点击重新发送`;
+            //             }
+            //         }, 1000);
+            //     }).catch(error => {
+            //         this.$alert(error.response.data.message);
+            //     })
+            //
+            // }
         },
 
     };

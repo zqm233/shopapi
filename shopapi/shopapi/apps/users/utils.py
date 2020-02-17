@@ -30,7 +30,6 @@ class UsernameMobileAuthBacked(ModelBackend):
     自定义的用户认证
     """
     def authenticate(self, request, username=None, password=None, **kwargs):
-        print('2')
         user = get_user_by_username(username)
         if user is None:
             return None

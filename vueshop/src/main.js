@@ -8,9 +8,7 @@ import settings from "./settings";
 import axios from 'axios'
 import '../static/css/reset.css'
 import 'element-ui/lib/theme-chalk/index.css';
-
-
-axios.defaults.withCredentials=true
+axios.defaults.withCredentials=false
 Vue.prototype.$axios = axios;
 Vue.prototype.$settings = settings;
 Vue.config.productionTip = false

@@ -194,7 +194,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR,'uploads')
 #     }
 # }
 REST_FRAMEWORK ={
-    'EXCEPTION_HANDLER':'shopapi.utils.exception.custom_exception_handler',
+    'EXCEPTION_HANDLER':'shopapi.utils.exceptions.custom_exception_handler',
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
         'rest_framework.authentication.SessionAuthentication',
@@ -218,8 +218,8 @@ AUTHENTICATION_BACKENDS = {
 
 
 # CORS_ORIGIN_WHITELIST = []
-CORS_ORIGIN_ALLOW_ALL=True
-CORS_ALLOW_CREDENTIALS=True
+CORS_ORIGIN_ALLOW_ALL= True
+CORS_ALLOW_CREDENTIALS= True
 
 
 AUTH_USER_MODEL = 'users.User'
