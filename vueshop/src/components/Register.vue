@@ -3,7 +3,7 @@
     <img src="../../static/image/Loginbg.3377d0c.jpg" alt="">
     <div class="register">
       <div class="register_box">
-        <div class="register-title">注册路飞学城</div>
+        <div class="register-title">注册shop</div>
         <div class="inp">
           <input v-model="mobile" type="text" @blur="checkMobile" placeholder="手机号码" class="user">
           <input v-model="password" type="password" placeholder="登录密码" class="user">
@@ -15,7 +15,7 @@
           <div id="geetest"></div>
           <button class="register_btn" @click="registerHandler">注册</button>
           <p class="go_login">已有账号
-            <router-link to="/user/login">直接登录</router-link>
+            <router-link to="/login">直接登录</router-link>
           </p>
         </div>
       </div>
@@ -57,7 +57,7 @@
                     this.$alert("对不起,密码长度必须在6-16个字符之间！");
                     return;
                 }
-                this.$axios.post(`${this.$settings.Host}/users/user/`, {
+                this.$axios.post(`${this.$settings.Host}/users/register/`, {
                     mobile: this.mobile,
                     password: this.password,
                     password2:this.password2,

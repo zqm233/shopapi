@@ -40,16 +40,18 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-
     'corsheaders',
     'rest_framework',
-
     'xadmin',
     'crispy_forms',
+    'ckeditor',  # 富文本编辑器
+    'ckeditor_uploader',  # 富文本编辑器上传图片模块
+    'django_filters',
     'reversion',
-
     'home',
     'users',
+    'course',
+    'cart',
 
 
 ]
@@ -149,8 +151,8 @@ MEDIA_ROOT = os.path.join(BASE_DIR,'uploads')
 
 #
 # LOGGING = {
-#     'version': 1,
-#     'disable_existing_loggers': False,
+    # 'version': 1,
+    # 'disable_existing_loggers': False,
 #     'formatters': {
 #         'verbose': {
 #             'format': '{levelname} {asctime} {module} {process:d} {thread:d} {message}',
@@ -225,27 +227,34 @@ CORS_ALLOW_CREDENTIALS= True
 AUTH_USER_MODEL = 'users.User'
 
 CACHES = {
-    'default': {
-        'BACKEND': 'django_redis.cache.RedisCache',
-        'LOCATION': 'redis://127.0.0.1:6379/0',
-        'OPTIONS': {
-            'CLIENT_CLASS': 'django_redis.client.DefaultClient',
-        }
-    },
-    'session': {
-        'BACKEND': 'django_redis.cache.RedisCache',
-        'LOCATION': 'redis://127.0.0.1:6379/1',
-        'OPTIONS': {
-            'CLIENT_CLASS': 'django_redis.client.DefaultClient',
-        }
-    },
-    'sms_code': {
-        'BACKEND': 'django_redis.cache.RedisCache',
-        'LOCATION': 'redis://127.0.0.1:6379/2',
-        'OPTIONS': {
-            'CLIENT_CLASS': 'django_redis.client.DefaultClient',
-        }
-    }
+        "cart": {
+            "BACKEND": "django_redis.cache.RedisCache",
+            "LOCATION": "redis://127.0.0.1:6379/3",
+            "OPTIONS": {
+                "CLIENT_CLASS": "django_redis.client.DefaultClient",
+            }
+        },
+        'default': {
+            'BACKEND': 'django_redis.cache.RedisCache',
+            'LOCATION': 'redis://127.0.0.1:6379/0',
+            'OPTIONS': {
+                'CLIENT_CLASS': 'django_redis.client.DefaultClient',
+            }
+        },
+#     'session': {
+#         'BACKEND': 'django_redis.cache.RedisCache',
+#         'LOCATION': 'redis://127.0.0.1:6379/1',
+#         'OPTIONS': {
+#             'CLIENT_CLASS': 'django_redis.client.DefaultClient',
+#         }
+#     },
+#     'sms_code': {
+#         'BACKEND': 'django_redis.cache.RedisCache',
+#         'LOCATION': 'redis://127.0.0.1:6379/2',
+#         'OPTIONS': {
+#             'CLIENT_CLASS': 'django_redis.client.DefaultClient',
+#         }
+#     }
 }
 
 SESSITION_ENGINE = 'django.contrib.session.backends.cache'
@@ -257,3 +266,14 @@ SMS_ACCOUNTTOKEN = '90b9ad943d24455b9425482149acec99'
 SMS_APPID = '8a216da8701eb7c10170477678c810ef'
 SMS_SERVERIP = 'app.cloopen.com'
 SMS_SERVERPORT = '8883'
+
+
+# 富文本编辑器ckeditor配置
+CKEDITOR_CONFIGS = {
+    'default': {
+        'toolbar': 'full',  # 工具条功能
+        'height': 300,      # 编辑器高度
+        # 'width': 300,     # 编辑器宽
+    },
+}
+CKEDITOR_UPLOAD_PATH = ''  # 上传图片保存路径，留空则调用django的文件上传功能

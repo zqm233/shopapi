@@ -31,5 +31,9 @@ urlpatterns = [
     re_path(r'media/(?P<path>.*)', serve, {"document_root": settings.MEDIA_ROOT}),
     path('home/', include('home.urls')),
     path(r'xadmin/', xadmin.site.urls),
-    path('users/',include('users.urls'))
+    path('users/',include('users.urls')),
+    path('course/',include('course.urls')),
+    path(r'ckeditor/', include('ckeditor_uploader.urls')),
+    path('cart/', include('cart.urls')),
+
 ]

@@ -5,6 +5,9 @@ Vue.use(Router)
 import Home from '@/components/Home'
 import Login from "../components/Login"
 import Register from "../components/Register";
+import Course from "../components/Course";
+import Detail from "../components/Detail";
+
 export default new Router({
   mode:'history',
   routes: [
@@ -28,9 +31,19 @@ export default new Router({
     },
     {
       path:'/register',
-      name:'register',
+      name:'Register',
       component:Register,
     },
+    {
+      path:'/courses',
+      name:'Courses',
+      component:Course,
+    },
+    {
+      path:'/courses/:id',
+      name:'Detail',
+      component:Detail
+    }
 
   ]
 })

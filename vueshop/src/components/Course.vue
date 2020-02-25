@@ -30,7 +30,7 @@
           </div>
           <div class="course-info">
             <h3>
-              <router-link :to="`/course/${course.id}?num=100`">{{course.name}}</router-link>
+              <router-link :to="'/courses/'+course.id">{{course.name}}</router-link>
               <span><img src="/static/image/avatar1.svg" alt="">{{course.students}}人已加入学习</span></h3>
             <!--            <h3><router-link :to="{path:`/course/${course.id}`,query:{num:100}}">{{course.name}}</router-link> <span><img src="/static/image/avatar1.svg" alt="">{{course.students}}人已加入学习</span></h3>-->
             <p class="teather-info">{{course.teacher.name}} {{course.teacher.signature}} {{course.teacher.title}} <span>共{{course.lessons}}课时/{{course.pub_lessons==course.lessons?'更新完成':`已更新${course.pub_lessons}个课时`}}</span>
@@ -160,8 +160,8 @@
                 this.$axios.get(`${this.$settings.Host}/course/`, {
                     params: filter,
                 }).then(response => {
-                    this.course_list = response.data.results;
-                    this.course_count = response.data.count;
+                    this.course_list = response.data;
+                    this.course_count = response.data.length;
                 }).catch(error => {
                     this.$alert("网络错误,获取课程信息失败！", "路飞学城");
                 });
