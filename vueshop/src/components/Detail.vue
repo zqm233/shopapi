@@ -246,7 +246,7 @@
                         }
                     }).then(response => {
                         this.$message.success("添加商品到购物车操作成功!");
-                        this.$store.commit(`update_num`, response.data.cart_num);
+                        // this.$store.commit(`update_num`, response.data.cart_num);
                     }).catch(error => {
                         this.$message.error("添加商品到购物车操作失败!");
                     });
