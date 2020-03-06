@@ -128,9 +128,9 @@
                     language: 'zh-CN',
                     aspectRatio: '16:9', // 将播放器置于流畅模式，并在计算播放器的动态大小时使用该值。值应该代表一个比例 - 用冒号分隔的两个数字（例如"16:9"或"4:3"）
                     fluid: true, // 当true时，Video.js player将拥有流体大小。换句话说，它将按比例缩放以适应其容器。
-                    sources: [{ // 播放资源和资源格式
-                        type: "video/mp4",
-                        src: "http://img.ksbbs.com/asset/Mon_1703/05cacb4e02f9d9e.mp4", //你的视频地址（必填）
+                    sources: [{
+                      type: "video/mp4",
+                      src: "https://cdn.theguardian.tv/webM/2015/07/20/150716YesMen_synd_768k_vp8.webm"
                     }],
                     poster: "../static/image/course-cover.jpeg", //视频封面图
                     width: document.documentElement.clientWidth, // 默认视频全屏时的最大宽度
@@ -246,7 +246,7 @@
                         }
                     }).then(response => {
                         this.$message.success("添加商品到购物车操作成功!");
-                        // this.$store.commit(`update_num`, response.data.cart_num);
+                        this.$store.commit(`update_num`, response.data.cart_num);
                     }).catch(error => {
                         this.$message.error("添加商品到购物车操作失败!");
                     });

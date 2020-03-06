@@ -4,7 +4,7 @@
       <el-checkbox class="my_el_checkbox" v-model="course.selected"></el-checkbox>
     </div>
     <div class="cart_column column_2">
-      <img :src="course.course_img" alt="">
+      <img :src="course.course_image" alt="">
       <span><router-link :to="`/course/${course.course_id}`">{{course.course_name}}</router-link></span>
     </div>
     <div class="cart_column column_3">

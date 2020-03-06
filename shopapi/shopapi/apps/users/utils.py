@@ -1,6 +1,7 @@
 from django.contrib.auth.backends import ModelBackend
 import re
 from .models import User
+from django_redis import get_redis_connection
 
 def get_user_by_username(username):
     try:
@@ -17,10 +18,14 @@ def get_user_by_username(username):
 
 
 def jwt_response_payload_handler(token,user=None,request=None):
+    redis_con = get_redis_connection('cart')
+    cart_num = redis_con.hlen('cart_%s'% user.id)
+
     return {
         'token':token,
         'id':user.id,
-        'username':user.username
+        'username':user.username,
+        'cart_num':cart_num
     }
 
 

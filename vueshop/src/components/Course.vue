@@ -26,13 +26,13 @@
       <div class="course-list">
         <div class="course-item" v-for="course in course_list">
           <div class="course-image">
-            <img :src="course.course_img" :alt="course.name">
+            <img :src="course.course_image" :alt="course.name">
           </div>
           <div class="course-info">
             <h3>
               <router-link :to="'/courses/'+course.id">{{course.name}}</router-link>
               <span><img src="/static/image/avatar1.svg" alt="">{{course.students}}人已加入学习</span></h3>
-            <!--            <h3><router-link :to="{path:`/course/${course.id}`,query:{num:100}}">{{course.name}}</router-link> <span><img src="/static/image/avatar1.svg" alt="">{{course.students}}人已加入学习</span></h3>-->
+<!--                        <h3><router-link :to="{path:`/course/${course.id}`,query:{num:100}}">{{course.name}}</router-link> <span><img src="/static/image/avatar1.svg" alt="">{{course.students}}人已加入学习</span></h3>-->
             <p class="teather-info">{{course.teacher.name}} {{course.teacher.signature}} {{course.teacher.title}} <span>共{{course.lessons}}课时/{{course.pub_lessons==course.lessons?'更新完成':`已更新${course.pub_lessons}个课时`}}</span>
             </p>
             <ul class="lesson-list">

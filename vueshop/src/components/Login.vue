@@ -121,7 +121,7 @@
                     // sessionStorage.user_credit = response.data.credit;
                     // sessionStorage.credit_money = response.data.credit_money;
                     // // 保存购物车商品数量到Vuex
-                    // this.$store.commit(`update_num`, response.data.cart_num);
+                    this.$store.commit(`update_num`, response.data.cart_num);
                     // 保存了token以后，进行页面跳转跳转
                     let self = this;
                     this.$alert("登录成功！", "shop", {

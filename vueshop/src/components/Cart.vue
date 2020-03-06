@@ -4,7 +4,7 @@
       <div class="cart_info">
         <div class="cart_title">
           <span class="text">我的购物车</span>
-          <span class="total">共2门课程</span>
+          <span class="total">共{{this.$store.state.cart.num}}门课程</span>
         </div>
         <div class="cart_table">
           <div class="cart_head_row">
@@ -84,7 +84,7 @@ export default {
           for(let key in this.course_list){
               if(course===this.course_list[key]){
                   // 数组.splice(key, length) # 从指定下标key位置删除length个成员
-                  this.course_list.splice(key,1);
+                  this.course_list.splice( key,1);
               }
           }
           // 删除课程以后,也要重新计算总价格

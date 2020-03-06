@@ -223,6 +223,9 @@ AUTHENTICATION_BACKENDS = {
 CORS_ORIGIN_ALLOW_ALL= True
 CORS_ALLOW_CREDENTIALS= True
 
+MEDIA_ROOT=os.path.join(BASE_DIR, "uploads")
+MEDIA_URL = "/media/"
+
 
 AUTH_USER_MODEL = 'users.User'
 
@@ -232,6 +235,7 @@ CACHES = {
             "LOCATION": "redis://127.0.0.1:6379/3",
             "OPTIONS": {
                 "CLIENT_CLASS": "django_redis.client.DefaultClient",
+                # 'CONNECTION_POOL_KWARGS': {'decode_responses': True}
             }
         },
         'default': {
@@ -239,6 +243,7 @@ CACHES = {
             'LOCATION': 'redis://127.0.0.1:6379/0',
             'OPTIONS': {
                 'CLIENT_CLASS': 'django_redis.client.DefaultClient',
+                # 'CONNECTION_POOL_KWARGS': {'decode_responses': True},
             }
         },
 #     'session': {
